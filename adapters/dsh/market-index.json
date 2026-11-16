@@ -53,11 +53,11 @@
       "versions": [
         {
           "version": "0.1.0",
-          "publishTimestamp": 1794853547,
+          "publishTimestamp": 1794855570,
           "source": {
             "type": "git",
             "url": "https://github.com/Clement-ccy/dsh-gpt-with-taste.git",
-            "commit": "9753ae4eba58a7652d6327661660c47003e9592b",
+            "commit": "56fab503e1ec7a76a23afc1e953f502271a03990",
             "path": "dist/dsh"
           },
           "engines": {
