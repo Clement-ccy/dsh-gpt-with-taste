@@ -4,7 +4,7 @@ Use GPT with Taste as a native [DeepSeek Harness](https://github.com/deepseek-ai
 
 ## Install and enable
 
-Use DSH **0.1.0-rc.6** or later with its normal profile plugin support. The runtime has been verified against rc.6; rerun the consumer fixture below when adopting another prerelease. Keep your existing profile, provider, model, permission settings and agent presets.
+Use DSH **0.2.x** with its normal profile plugin support. This build targets the v4 session format and has been verified against 0.2.2-rc.3; rerun the consumer fixture below when adopting another prerelease. Keep your existing profile, provider, model, permission settings and agent presets.
 
 From this repository's root, build the generated package and add it to the profile you use. This example uses `web`:
 
@@ -16,6 +16,27 @@ dsh plugin --profile web add ./dist/dsh
 `dsh plugin` uses pnpm to install the local package into that profile. Its native bundle discovery adds `dsh-gpt-with-taste` to `dsh.profile.bundles`. The bundle's `cordis.patch.yml` inserts one plugin row, `gpt-with-taste`; the next process launched with that profile loads it. Repeat the add command for another profile only if you want the guidance there too. A running process keeps its current plugin generation.
 
 The generated package imports the host's `@deepseek-ai/dsh-llm` peer for `createUserMessage`; use the DSH profile installer so it shares the host SDK. Do not install a separate Cordis runtime into the bundle.
+
+## Install from the plugin market
+
+The package is published to npm as `dsh-gpt-with-taste` and carries a plugin market index (format 1) in `index.json`, so one publish gives other users an installable package and an index source URL at the same time.
+
+```sh
+node scripts/build.mjs --target dsh
+cd dist/dsh && npm publish --access public
+```
+
+Publishing needs an npm account that owns the package name. The index source is the published file itself:
+
+```
+https://cdn.jsdelivr.net/npm/dsh-gpt-with-taste@0.1.0/index.json
+```
+
+In DSH, open **Plugins → Discover**, add that URL as an index source, search for *GPT with Taste*, and install the entry. The market installs the exact version the index lists (`dsh-gpt-with-taste@0.1.0`) into the current profile and registers the bundle, the same way `dsh plugin --profile web add` does. The host checks its own version against the package's `@deepseek-ai/dsh-*` peer range; this package requires `>=0.1.0-rc.6 <1.0.0`.
+
+Bump `recipe/manifest.json` before the next publish and list the new version in `adapters/dsh/market-index.json`. The build fails when the index does not name the version it produces, so the published index never advertises a version npm does not have.
+
+`adapters/dsh/market-index.json` and `adapters/dsh/README.md` are copied into the package unchanged: the README is the npm package page, the index file is what the host parses.
 
 ## Choose the root role
 
@@ -43,8 +64,8 @@ At `agent/pre-step`, the plugin delegates with `next()` and augments only an acc
 | --- | --- |
 | `user` to a Main root | User Steer |
 | `user` or `coordinator` to a native subagent | Sub Steer |
-| `subagent-report` or `subagent-settled` to a Main root | Agent Steer |
-| `subagent-report` or `subagent-settled` to a native subagent | Sub Steer |
+| `agent-message`, `team-message`, `subagent-report` or `subagent-settled` to a Main root | Agent Steer |
+| `agent-message`, `team-message`, `subagent-report` or `subagent-settled` to a native subagent | Sub Steer |
 | Tool results, plugin context, unknown source kinds | None |
 
 Each recognized message gets one preceding plugin-owned instruction message. The original message keeps its identity, content and source. DSH logs both through its normal `user/message` path before a request. A rejected step stays rejected. An ordinary tool continuation with no new recognized input gets no new steering.
@@ -74,7 +95,7 @@ Remove any `gpt-with-taste` override row from the profile's patch file as well. 
 
 ## Build and verify without a model
 
-`recipe/` is the editable behavior source. `adapters/dsh/build.mjs` implements `render({root, meta, texts})` and emits `dist/dsh/package.json`, `cordis.patch.yml`, `index.mjs`, `texts.json` and the MIT `LICENSE`. The runtime reads only generated text. Edit the recipe and rebuild rather than editing `dist/dsh`.
+`recipe/` is the editable behavior source. `adapters/dsh/build.mjs` implements `render({root, meta, texts})` and emits `dist/dsh/package.json`, `cordis.patch.yml`, `index.mjs`, `texts.json`, the market index `index.json`, the package page `README.md` and the MIT `LICENSE`. The runtime reads only generated text. Edit the recipe and rebuild rather than editing `dist/dsh`.
 
 ```sh
 node scripts/build.mjs --target dsh

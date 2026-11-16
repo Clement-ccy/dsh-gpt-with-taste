@@ -17,8 +17,10 @@
   },
   "files": [
     "dist/dsh/LICENSE",
+    "dist/dsh/README.md",
     "dist/dsh/build-manifest.json",
     "dist/dsh/cordis.patch.yml",
+    "dist/dsh/index.json",
     "dist/dsh/index.mjs",
     "dist/dsh/package.json",
     "dist/dsh/texts.json"

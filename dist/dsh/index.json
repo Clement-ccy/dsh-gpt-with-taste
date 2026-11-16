@@ -1,0 +1,67 @@
+{
+  "format": 1,
+  "title": {
+    "en": "SCY DSH Plugins",
+    "zh": "SCY 的 DSH 插件"
+  },
+  "description": {
+    "en": "A personal plugin index for DeepSeek Harness. Each entry installs from npm and runs as a DSH bundle.",
+    "zh": "面向 DeepSeek Harness 的个人插件索引。每个条目都从 npm 安装，并作为 DSH bundle 运行。"
+  },
+  "metadata": {
+    "categories": {
+      "behavior": {
+        "title": {
+          "en": "Behavior",
+          "zh": "行为增强"
+        }
+      }
+    },
+    "labels": {},
+    "sortKeys": {}
+  },
+  "plugins": [
+    {
+      "name": "dsh-gpt-with-taste",
+      "title": {
+        "en": "GPT with Taste",
+        "zh": "GPT with Taste"
+      },
+      "description": {
+        "en": "Adds a taste-and-judgment behavior layer to every session and steers each turn with a short role-appropriate instruction.",
+        "zh": "为每个会话注入品味与判断力行为层，并在每一回合前插入简短的、贴合角色的引导指令。"
+      },
+      "author": "ShengChuiye",
+      "homepage": "https://github.com/NB-Corp/gpt-with-taste",
+      "repository": {
+        "url": "https://github.com/NB-Corp/gpt-with-taste",
+        "directory": "dist/dsh"
+      },
+      "metadata": {
+        "category": "behavior",
+        "keywords": [
+          "dsh",
+          "deepseek-harness",
+          "dsh-plugin",
+          "behavior",
+          "prompt",
+          "taste"
+        ],
+        "labels": [],
+        "sortKeys": {}
+      },
+      "versions": [
+        {
+          "version": "0.1.0",
+          "publishTimestamp": 1794853547,
+          "source": {
+            "type": "npm"
+          },
+          "engines": {
+            "dsh": ">=0.1.0-rc.6 <1.0.0"
+          }
+        }
+      ]
+    }
+  ]
+}

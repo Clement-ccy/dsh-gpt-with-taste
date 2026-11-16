@@ -134,3 +134,29 @@ test('uses a producer-owned source kind accepted by session format v4', async t 
   assert.ok(encode('gpt-with-taste'));
   assert.throws(() => encode('plugin'), /producer-owned source kind/);
 });
+
+test('publishes a market index the host parser accepts', async t => {
+  const packageRoot = process.env.DSH_PACKAGE_ROOT;
+  if (!packageRoot) {
+    t.skip('set DSH_PACKAGE_ROOT to check the market index');
+    return;
+  }
+  const requireDsh = createRequire(path.join(packageRoot, 'package.json'));
+  let parseMarketIndex, marketInstallTarget;
+  try {
+    const resolved = requireDsh.resolve('@deepseek-ai/dsh-plugin-market-index');
+    ({parseMarketIndex, marketInstallTarget} = await import(pathToFileURL(resolved).href));
+  } catch {
+    t.skip('the host installation has no plugin market index parser');
+    return;
+  }
+  const index = JSON.parse(outputs.get('index.json'));
+  const manifest = JSON.parse(outputs.get('package.json'));
+  const parsed = parseMarketIndex(index, 'https://cdn.jsdelivr.net/npm/' + manifest.name + '@' + manifest.version + '/index.json');
+  assert.equal(parsed.plugins.length, 1);
+  const plugin = parsed.plugins[0];
+  assert.equal(plugin.name, manifest.name);
+  assert.equal(plugin.versions.length, 1);
+  assert.equal(plugin.versions[0].version, manifest.version);
+  assert.deepEqual(marketInstallTarget(plugin.name, plugin.versions[0]), {spec: manifest.name + '@' + manifest.version});
+});

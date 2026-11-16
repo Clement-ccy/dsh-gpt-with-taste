@@ -2,7 +2,16 @@
   "name": "dsh-gpt-with-taste",
   "version": "0.1.0",
   "description": "GPT with Taste: Better judgment. Better taste. Less ceremony.",
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "dsh-plugin",
+    "behavior",
+    "prompt",
+    "taste"
+  ],
   "license": "MIT",
+  "author": "ShengChuiye",
   "type": "module",
   "main": "./index.mjs",
   "exports": {
@@ -13,6 +22,8 @@
     "index.mjs",
     "texts.json",
     "cordis.patch.yml",
+    "index.json",
+    "README.md",
     "LICENSE"
   ],
   "engines": {
@@ -21,7 +32,18 @@
   "peerDependencies": {
     "@deepseek-ai/dsh-llm": ">=0.1.0-rc.6 <1.0.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NB-Corp/gpt-with-taste.git"
+  },
+  "homepage": "https://github.com/NB-Corp/gpt-with-taste#readme",
+  "bugs": {
+    "url": "https://github.com/NB-Corp/gpt-with-taste/issues"
+  },
   "dsh": {
+    "engines": {
+      "dsh": ">=0.1.0-rc.6 <1.0.0"
+    },
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
