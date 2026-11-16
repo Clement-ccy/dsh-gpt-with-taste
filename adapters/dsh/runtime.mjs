@@ -4,12 +4,16 @@ import {createUserMessage} from '@deepseek-ai/dsh-llm';
 export const name = 'gpt-with-taste';
 export const inject = ['systemPrompt', 'agents'];
 const sectionName = 'gpt-with-taste:behavior';
+// Session format v4 refuses the retired generic 'plugin' source kind, so this
+// bundle owns its producer kind like every other first-party producer.
+const sourceKind = 'gpt-with-taste';
 
 /** Native DSH augmentation. All behavior text comes from the compiler output. */
 export async function apply(ctx, config = {}) {
   const rootRole = config.rootRole ?? 'main';
-  if (!['main', 'independent'].includes(rootRole))
+  if (!['main', 'independent'].includes(rootRole)) {
     throw new Error('gpt-with-taste rootRole must be main or independent');
+  }
   const texts = JSON.parse(await readFile(new URL('./texts.json', import.meta.url), 'utf8'));
   const roleOf = agent => agent.session.header.origin === 'subagent' ? 'sub' : rootRole;
 
@@ -34,6 +38,10 @@ export async function apply(ctx, config = {}) {
           case 'coordinator':
             key = role === 'sub' ? 'subSteer' : undefined;
             break;
+          // Agent and team relays carry another agent's own words; the settlement
+          // notice carries the runtime's account of a finished child.
+          case 'agent-message':
+          case 'team-message':
           case 'subagent-report':
           case 'subagent-settled':
             key = role === 'sub' ? 'subSteer' : role === 'main' ? 'agentSteer' : undefined;
@@ -44,7 +52,7 @@ export async function apply(ctx, config = {}) {
         }
         if (key === undefined) return [message];
         return [createUserMessage({
-          source: {kind: 'plugin', plugin: name, form: 'instructions'},
+          source: {kind: sourceKind, form: 'instructions'},
           content: [{type: 'text', text: texts[key]}],
         }), message];
       }),
