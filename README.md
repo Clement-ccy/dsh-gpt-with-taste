@@ -15,12 +15,29 @@
 
 <p align="center">
   <a href="#harnesses">Harnesses</a> ·
+  <a href="#install-dsh">Install DSH</a> ·
   <a href="#install">Install Codex</a> ·
   <a href="#what-changes">What changes</a> ·
   <a href="#featured-case">Comparison</a> ·
   <a href="#how-it-works">How it works</a> ·
   <a href="#research">Research</a>
 </p>
+
+---
+
+<a id="install-dsh"></a>
+
+## Install · DeepSeek Harness
+
+This repository is ShengChuiye's distribution of GPT with Taste for DeepSeek Harness, carrying the DeepSeek Harness 0.2.x compatibility fixes. The behavior recipe and the other harness adapters come from [NB-Corp/gpt-with-taste](https://github.com/NB-Corp/gpt-with-taste).
+
+In DeepSeek Harness, open **Plugins → Discover**, add this index source, then install *GPT with Taste*:
+
+```
+https://raw.githubusercontent.com/Clement-ccy/dsh-gpt-with-taste/main/dist/dsh/index.json
+```
+
+The host clones the commit the index pins and installs `dist/dsh` from it. The root role, the profile patch and the release steps are in [docs/harnesses/dsh.md](docs/harnesses/dsh.md).
 
 ---
 
@@ -50,7 +67,7 @@ Running in another host? See [docs/harnesses/porting.md](docs/harnesses/porting.
 With Node.js 22 or newer installed:
 
 ```sh
-git clone https://github.com/NB-Corp/gpt-with-taste.git
+git clone https://github.com/Clement-ccy/dsh-gpt-with-taste.git
 cd gpt-with-taste
 node scripts/install.mjs --hooks
 ```

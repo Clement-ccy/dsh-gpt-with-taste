@@ -19,24 +19,21 @@ The generated package imports the host's `@deepseek-ai/dsh-llm` peer for `create
 
 ## Install from the plugin market
 
-The package is published to npm as `dsh-gpt-with-taste` and carries a plugin market index (format 1) in `index.json`, so one publish gives other users an installable package and an index source URL at the same time.
-
-```sh
-node scripts/build.mjs --target dsh
-cd dist/dsh && npm publish --access public
-```
-
-Publishing needs an npm account that owns the package name. The index source is the published file itself:
+This repository carries the compiled bundle and the plugin market index (format 1), so one GitHub repository serves both the install and the index source URL:
 
 ```
-https://cdn.jsdelivr.net/npm/dsh-gpt-with-taste@0.1.0/index.json
+https://raw.githubusercontent.com/Clement-ccy/dsh-gpt-with-taste/main/dist/dsh/index.json
 ```
 
-In DSH, open **Plugins → Discover**, add that URL as an index source, search for *GPT with Taste*, and install the entry. The market installs the exact version the index lists (`dsh-gpt-with-taste@0.1.0`) into the current profile and registers the bundle, the same way `dsh plugin --profile web add` does. The host checks its own version against the package's `@deepseek-ai/dsh-*` peer range; this package requires `>=0.1.0-rc.6 <1.0.0`.
+In DSH, open **Plugins → Discover**, add that URL as an index source, search for *GPT with Taste*, and install the entry. The host clones the commit the index pins and installs `dist/dsh` from it into the current profile, the same way `dsh plugin --profile web add` installs a local package. The host checks its own version against the package's `@deepseek-ai/dsh-*` peer range; this package requires `>=0.1.0-rc.6 <1.0.0`.
 
-Bump `recipe/manifest.json` before the next publish and list the new version in `adapters/dsh/market-index.json`. The build fails when the index does not name the version it produces, so the published index never advertises a version npm does not have.
+`adapters/dsh/market-index.json` is the index source and is copied into the package as `index.json`; `adapters/dsh/README.md` is the page the market shows. The build fails when the index does not name the version it produces or a commit that carries the package.
 
-`adapters/dsh/market-index.json` and `adapters/dsh/README.md` are copied into the package unchanged: the README is the npm package page, the index file is what the host parses.
+To release a new version:
+
+1. Bump `recipe/manifest.json` and list the new version in `adapters/dsh/market-index.json`.
+2. Build, commit and push. That commit carries the new bundle.
+3. Point the index at it, then rebuild and commit again. The index names the previous commit, because a commit cannot contain its own hash.
 
 ## Choose the root role
 

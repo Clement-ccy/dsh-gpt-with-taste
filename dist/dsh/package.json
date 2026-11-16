@@ -34,11 +34,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NB-Corp/gpt-with-taste.git"
+    "url": "git+https://github.com/Clement-ccy/dsh-gpt-with-taste.git"
   },
-  "homepage": "https://github.com/NB-Corp/gpt-with-taste#readme",
+  "homepage": "https://github.com/Clement-ccy/dsh-gpt-with-taste#readme",
   "bugs": {
-    "url": "https://github.com/NB-Corp/gpt-with-taste/issues"
+    "url": "https://github.com/Clement-ccy/dsh-gpt-with-taste/issues"
   },
   "dsh": {
     "engines": {

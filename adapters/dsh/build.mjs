@@ -5,11 +5,14 @@ const json = value => JSON.stringify(value, null, 2) + '\n';
 
 const NPM_PACKAGE = 'dsh-gpt-with-taste';
 const DSH_RANGE = '>=0.1.0-rc.6 <1.0.0';
-const UPSTREAM = 'https://github.com/NB-Corp/gpt-with-taste';
+const REPO = 'Clement-ccy/dsh-gpt-with-taste';
+const GIT_URL = `https://github.com/${REPO}.git`;
+const PACKAGE_DIR = 'dist/dsh';
 
 /**
- * The market index ships inside the package, so one publish serves both the install
- * and the index source URL. Its entry must name the version this build produces.
+ * The market index ships inside the package, so one repository serves both the install
+ * and the index source URL. Its entry must name the version this build produces and
+ * the GitHub commit that carries the package directory.
  */
 async function marketIndex(meta) {
   const index = JSON.parse(await readFile(new URL('./market-index.json', import.meta.url), 'utf8'));
@@ -17,7 +20,14 @@ async function marketIndex(meta) {
   if (!plugin) throw new Error(`market-index.json must list ${NPM_PACKAGE}`);
   const version = plugin.versions?.find(entry => entry.version === meta.version);
   if (!version) throw new Error(`market-index.json must list ${NPM_PACKAGE}@${meta.version}`);
-  if (version.source?.type !== 'npm') throw new Error('market-index.json must install from npm');
+  const source = version.source ?? {};
+  if (source.type === 'git') {
+    if (source.url !== GIT_URL) throw new Error(`market-index.json must install from ${GIT_URL}`);
+    if (!/^[0-9a-f]{40}$/.test(source.commit ?? '')) throw new Error('market-index.json must pin a 40-hex commit');
+    if (source.path !== PACKAGE_DIR) throw new Error(`market-index.json must install ${PACKAGE_DIR}`);
+  } else if (source.type !== 'npm') {
+    throw new Error('market-index.json must install from npm or git');
+  }
   return index;
 }
 
@@ -44,9 +54,9 @@ export async function render({root, meta, texts}) {
       files: ['index.mjs', 'texts.json', 'cordis.patch.yml', 'index.json', 'README.md', 'LICENSE'],
       engines: {node: '^22.19.0 || >=24.0.0'},
       peerDependencies: {'@deepseek-ai/dsh-llm': DSH_RANGE},
-      repository: {type: 'git', url: `git+${UPSTREAM}.git`},
-      homepage: `${UPSTREAM}#readme`,
-      bugs: {url: `${UPSTREAM}/issues`},
+      repository: {type: 'git', url: `git+${GIT_URL}`},
+      homepage: `https://github.com/${REPO}#readme`,
+      bugs: {url: `https://github.com/${REPO}/issues`},
       dsh: {engines: {dsh: DSH_RANGE}, bundle: {patch: './cordis.patch.yml'}},
     })],
     ['cordis.patch.yml', `${generated}- insert:\n    - id: gpt-with-taste\n      name: dsh-gpt-with-taste\n      config:\n        rootRole: main\n`],

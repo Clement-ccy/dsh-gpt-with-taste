@@ -16,12 +16,29 @@
 
 <p align="center">
   <a href="#harnesses">宿主适配</a> ·
+  <a href="#install-dsh">安装 DSH</a> ·
   <a href="#install">安装 Codex</a> ·
   <a href="#what-changes">改变什么</a> ·
   <a href="#featured-case">对照示例</a> ·
   <a href="#how-it-works">工作机制</a> ·
   <a href="#research">研究依据</a>
 </p>
+
+---
+
+<a id="install-dsh"></a>
+
+## 安装 · DeepSeek Harness
+
+本仓库是笙锤烨（ShengChuiye）面向 DeepSeek Harness 的 GPT with Taste 分发版，带 DeepSeek Harness 0.2.x 兼容修复；行为配方与其余宿主适配来自 [NB-Corp/gpt-with-taste](https://github.com/NB-Corp/gpt-with-taste)。
+
+在 DeepSeek Harness 里打开 **插件 → 发现**，添加下面的索引源，再搜索安装 *GPT with Taste*：
+
+```
+https://raw.githubusercontent.com/Clement-ccy/dsh-gpt-with-taste/main/dist/dsh/index.json
+```
+
+宿主会克隆索引里固定的提交，并从其中安装 `dist/dsh`。根角色、profile 补丁与发版步骤见 [docs/harnesses/dsh.md](docs/harnesses/dsh.md)。
 
 ---
 
@@ -51,7 +68,7 @@ GPT with Taste 由单一行为配方源编译生成，为各支持宿主提供�
 先安装 Node.js 22 或更高版本，然后运行：
 
 ```sh
-git clone https://github.com/NB-Corp/gpt-with-taste.git
+git clone https://github.com/Clement-ccy/dsh-gpt-with-taste.git
 cd gpt-with-taste
 node scripts/install.mjs --hooks
 ```
