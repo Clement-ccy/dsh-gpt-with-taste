@@ -5,7 +5,7 @@ const json = value => JSON.stringify(value, null, 2) + '\n';
 
 const NPM_PACKAGE = 'dsh-gpt-with-taste';
 const DSH_RANGE = '>=0.1.0-rc.6 <1.0.0';
-const REPO = 'Clement-ccy/dsh-gpt-with-taste';
+const REPO = 'Sentryea/dsh-gpt-with-taste';
 const GIT_URL = `https://github.com/${REPO}.git`;
 const PACKAGE_DIR = 'dist/dsh';
 

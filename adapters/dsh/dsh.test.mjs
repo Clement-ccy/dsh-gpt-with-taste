@@ -152,12 +152,12 @@ test('publishes a market index the host parser accepts', async t => {
   }
   const index = JSON.parse(outputs.get('index.json'));
   const manifest = JSON.parse(outputs.get('package.json'));
-  const parsed = parseMarketIndex(index, 'https://raw.githubusercontent.com/Clement-ccy/dsh-gpt-with-taste/main/dist/dsh/index.json');
+  const parsed = parseMarketIndex(index, 'https://raw.githubusercontent.com/Sentryea/dsh-gpt-with-taste/main/dist/dsh/index.json');
   assert.equal(parsed.plugins.length, 1);
   const plugin = parsed.plugins[0];
   assert.equal(plugin.name, manifest.name);
   assert.equal(plugin.versions.length, 1);
   assert.equal(plugin.versions[0].version, manifest.version);
   const target = marketInstallTarget(plugin.name, plugin.versions[0]);
-  assert.match(target.spec, /^git\+https:\/\/github\.com\/Clement-ccy\/dsh-gpt-with-taste\.git#[0-9a-f]{40}&path:\/dist\/dsh$/);
+  assert.match(target.spec, /^git\+https:\/\/github\.com\/Sentryea\/dsh-gpt-with-taste\.git#[0-9a-f]{40}&path:\/dist\/dsh$/);
 });

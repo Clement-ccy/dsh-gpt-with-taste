@@ -32,9 +32,9 @@
         "zh": "为每个会话注入品味与判断力行为层，并在每一回合前插入简短的、贴合角色的引导指令。"
       },
       "author": "ShengChuiye",
-      "homepage": "https://github.com/Clement-ccy/dsh-gpt-with-taste",
+      "homepage": "https://github.com/Sentryea/dsh-gpt-with-taste",
       "repository": {
-        "url": "https://github.com/Clement-ccy/dsh-gpt-with-taste",
+        "url": "https://github.com/Sentryea/dsh-gpt-with-taste",
         "directory": "dist/dsh"
       },
       "metadata": {
@@ -56,7 +56,7 @@
           "publishTimestamp": 1794855570,
           "source": {
             "type": "git",
-            "url": "https://github.com/Clement-ccy/dsh-gpt-with-taste.git",
+            "url": "https://github.com/Sentryea/dsh-gpt-with-taste.git",
             "commit": "56fab503e1ec7a76a23afc1e953f502271a03990",
             "path": "dist/dsh"
           },

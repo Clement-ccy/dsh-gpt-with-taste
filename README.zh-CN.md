@@ -35,7 +35,7 @@
 在 DeepSeek Harness 里打开 **插件 → 发现**，添加下面的索引源，再搜索安装 *GPT with Taste*：
 
 ```
-https://raw.githubusercontent.com/Clement-ccy/dsh-gpt-with-taste/main/dist/dsh/index.json
+https://raw.githubusercontent.com/Sentryea/dsh-gpt-with-taste/main/dist/dsh/index.json
 ```
 
 宿主会克隆索引里固定的提交，并从其中安装 `dist/dsh`。根角色、profile 补丁与发版步骤见 [docs/harnesses/dsh.md](docs/harnesses/dsh.md)。
@@ -68,7 +68,7 @@ GPT with Taste 由单一行为配方源编译生成，为各支持宿主提供�
 先安装 Node.js 22 或更高版本，然后运行：
 
 ```sh
-git clone https://github.com/Clement-ccy/dsh-gpt-with-taste.git
+git clone https://github.com/Sentryea/dsh-gpt-with-taste.git
 cd gpt-with-taste
 node scripts/install.mjs --hooks
 ```

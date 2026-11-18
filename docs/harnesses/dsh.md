@@ -22,7 +22,7 @@ The generated package imports the host's `@deepseek-ai/dsh-llm` peer for `create
 This repository carries the compiled bundle and the plugin market index (format 1), so one GitHub repository serves both the install and the index source URL:
 
 ```
-https://raw.githubusercontent.com/Clement-ccy/dsh-gpt-with-taste/main/dist/dsh/index.json
+https://raw.githubusercontent.com/Sentryea/dsh-gpt-with-taste/main/dist/dsh/index.json
 ```
 
 In DSH, open **Plugins → Discover**, add that URL as an index source, search for *GPT with Taste*, and install the entry. The host clones the commit the index pins and installs `dist/dsh` from it into the current profile, the same way `dsh plugin --profile web add` installs a local package. The host checks its own version against the package's `@deepseek-ai/dsh-*` peer range; this package requires `>=0.1.0-rc.6 <1.0.0`.

@@ -16,7 +16,7 @@ Nothing else changes: no tools are added, no messages are rewritten, and the inj
 In DeepSeek Harness, open **Plugins → Discover**, add this index source, then install the entry:
 
 ```
-https://raw.githubusercontent.com/Clement-ccy/dsh-gpt-with-taste/main/dist/dsh/index.json
+https://raw.githubusercontent.com/Sentryea/dsh-gpt-with-taste/main/dist/dsh/index.json
 ```
 
 The index names the GitHub commit that carries this package, so the host clones that exact revision and installs `dist/dsh` from it. The index file lives in the same repository, so it always describes the commit it points at.
@@ -49,7 +49,7 @@ The behavior recipe comes from [NB-Corp/gpt-with-taste](https://github.com/NB-Co
 **怎么装**：在 DeepSeek Harness 里打开 **插件 → 发现**，把下面这个索引源加进去，再搜索安装条目：
 
 ```
-https://raw.githubusercontent.com/Clement-ccy/dsh-gpt-with-taste/main/dist/dsh/index.json
+https://raw.githubusercontent.com/Sentryea/dsh-gpt-with-taste/main/dist/dsh/index.json
 ```
 
 索引里写明了携带这个包的 GitHub 提交，宿主会克隆那个提交并从其中安装 `dist/dsh`。索引文件就在同一个仓库里，所以它永远描述自己指向的那个提交。

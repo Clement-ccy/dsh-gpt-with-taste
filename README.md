@@ -34,7 +34,7 @@ This repository is ShengChuiye's distribution of GPT with Taste for DeepSeek Har
 In DeepSeek Harness, open **Plugins → Discover**, add this index source, then install *GPT with Taste*:
 
 ```
-https://raw.githubusercontent.com/Clement-ccy/dsh-gpt-with-taste/main/dist/dsh/index.json
+https://raw.githubusercontent.com/Sentryea/dsh-gpt-with-taste/main/dist/dsh/index.json
 ```
 
 The host clones the commit the index pins and installs `dist/dsh` from it. The root role, the profile patch and the release steps are in [docs/harnesses/dsh.md](docs/harnesses/dsh.md).
@@ -67,7 +67,7 @@ Running in another host? See [docs/harnesses/porting.md](docs/harnesses/porting.
 With Node.js 22 or newer installed:
 
 ```sh
-git clone https://github.com/Clement-ccy/dsh-gpt-with-taste.git
+git clone https://github.com/Sentryea/dsh-gpt-with-taste.git
 cd gpt-with-taste
 node scripts/install.mjs --hooks
 ```
